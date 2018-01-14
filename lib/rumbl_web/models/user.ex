@@ -1,5 +1,6 @@
 defmodule Rumbl.Accounts.User do
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "accounts_users" do
     field :name, :string
@@ -8,6 +9,14 @@ defmodule Rumbl.Accounts.User do
     field :password_hash, :string
 
     timestamps()
+  end
+
+
+  def changeset(model, params \\ :invalid) do
+    model
+    |> cast(params, [:name, :username])
+    |> validate_required([:name, :username])
+    |> validate_length(:username, min: 1, max: 20)
   end
 
 end
