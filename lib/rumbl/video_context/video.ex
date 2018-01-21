@@ -2,6 +2,7 @@ defmodule Rumbl.VideoContext.Video do
   use Ecto.Schema
   import Ecto.Changeset
   alias Rumbl.VideoContext.Video
+  alias Rumbl.VideoContext.Category
 
 
   schema "videos" do
@@ -9,6 +10,7 @@ defmodule Rumbl.VideoContext.Video do
     field :title, :string
     field :url, :string
     belongs_to :user, Rumbl.Accounts.User
+    belongs_to :category, Rumbl.VideoContext.Category
 
     timestamps()
   end

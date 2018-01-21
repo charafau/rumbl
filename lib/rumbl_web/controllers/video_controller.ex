@@ -1,8 +1,12 @@
 defmodule RumblWeb.VideoController do
   use RumblWeb, :controller
 
+  alias Rumbl.Repo
   alias Rumbl.VideoContext
   alias Rumbl.VideoContext.Video
+  alias Rumbl.VideoContext.Category
+
+  plug :load_categories when action in [:new, :create, :edit, :update]
 
   def index(conn, _params, user) do
     videos = VideoContext.list_videos(user)
@@ -10,7 +14,7 @@ defmodule RumblWeb.VideoController do
   end
 
   def new(conn, _params, user) do
-#    changeset = VideoContext.change_video(%Video{})
+    #    changeset = VideoContext.change_video(%Video{})
     changeset =
       user
       |> Ecto.build_assoc(:videos)
@@ -64,8 +68,22 @@ defmodule RumblWeb.VideoController do
   end
 
   def action(conn, _) do
-    apply(__MODULE__, action_name(conn),
-                      [conn, conn.params, conn.assigns.current_user])
+    apply(
+      __MODULE__,
+      action_name(conn),
+      [conn, conn.params, conn.assigns.current_user]
+    )
+  end
+
+
+  defp load_categories(conn, _) do
+    query =
+      Category
+      |> Category.alphabetical
+      |> Category.names_and_ids
+
+    categories = Repo.all(query)
+    assign(conn, :categories, categories)
   end
 
 end
