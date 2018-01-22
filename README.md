@@ -1,3 +1,5 @@
+My simple attempts to learn phoenix with book "Programming Phoenix"
+
 # Rumbl
 
 To start your Phoenix server:
