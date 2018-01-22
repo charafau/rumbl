@@ -20,5 +20,6 @@ defmodule Rumbl.VideoContext.Video do
     video
     |> cast(attrs, [:url, :title, :description])
     |> validate_required([:url, :title, :description])
+    |> assoc_constraint(:category)
   end
 end
