@@ -4,6 +4,8 @@
     <%= content_tag :div, id: "video",
       data: [id: @video.id, player_id: player_id(@video)] do %>
       <% end %>
+    <iframe width="420" height="360" src="<%= @video.url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
   </div>
   <div class="col-sm-5">
     <div class="panel panel-default">
